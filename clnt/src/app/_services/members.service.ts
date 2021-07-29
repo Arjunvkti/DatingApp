@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MembersService {
+  
   baseUrl = environment.apiUrl;
   members: Member[] = [];
 
@@ -37,5 +38,13 @@ export class MembersService {
         this.members[index] = member;
       })
     )
+  }
+
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
+  }
+
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 }
