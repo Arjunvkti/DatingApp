@@ -10,9 +10,9 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  membe!: Member;
-  galleryOptions: NgxGalleryOptions[] = [];
-  galleryImages: NgxGalleryImage[] = [];
+  member: Member | any;
+  galleryOptions: NgxGalleryOptions[] | any;
+  galleryImages: NgxGalleryImage[] | any;
 
   
   constructor(private memberService: MembersService, private route: ActivatedRoute) { }
@@ -34,7 +34,7 @@ export class MemberDetailComponent implements OnInit {
 
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
-    for (const photo of this.membe.photos) {
+    for (const photo of this.member.photos) {
       imageUrls.push({
         small: photo?.url,
         medium: photo?.url,
@@ -46,7 +46,7 @@ export class MemberDetailComponent implements OnInit {
 
   loadMember() {
     this.memberService.getMember(this.route.snapshot.paramMap.get('username') || '{}').subscribe(member => {
-      this.membe = member;
+      this.member = member;
       this.galleryImages = this.getImages();
     })
   }
