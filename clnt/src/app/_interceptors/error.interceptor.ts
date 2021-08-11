@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 
@@ -22,17 +22,15 @@ export class ErrorInterceptor implements HttpInterceptor {
           switch (error.status) {
             case 400:
               if (error.error.errors) {
-                const modelStateErrors = [];
+                const modalStateErrors = [];
                 for (const key in error.error.errors) {
                   if (error.error.errors[key]) {
-                    modelStateErrors.push(error.error.errors[key])
+                    modalStateErrors.push(error.error.errors[key])
                   }
                 }
-                throw modelStateErrors.flat();
-              } else if (typeof(error.error) === 'object') {
-                this.toastr.error(error.statusText, error.status);
+                throw modalStateErrors.flat();
               } else {
-                this.toastr.error(error.error, error.status);
+                this.toastr.error(error.statusText, error.status);
               }
               break;
             case 401:
@@ -40,12 +38,11 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
             case 404:
               this.router.navigateByUrl('/not-found');
-              break;  
+              break;
             case 500:
               const navigationExtras: NavigationExtras = {state: {error: error.error}}
               this.router.navigateByUrl('/server-error', navigationExtras);
-              break;    
-          
+              break;
             default:
               this.toastr.error('Something unexpected went wrong');
               console.log(error);
@@ -53,7 +50,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         }
         return throwError(error);
-        
       })
     )
   }

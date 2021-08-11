@@ -12,14 +12,14 @@ namespace API.Middleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IHostEnvironment _env;
         private readonly ILogger<ExceptionMiddleware> _logger;
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
+        private readonly IHostEnvironment _env;
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, 
+            IHostEnvironment env)
         {
-            _logger = logger;
             _env = env;
+            _logger = logger;
             _next = next;
-
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -42,11 +42,8 @@ namespace API.Middleware
 
                 var json = JsonSerializer.Serialize(response, options);
 
-                await context.Response.WriteAsync(json);    
-                
+                await context.Response.WriteAsync(json);
             }
         }
-
-        
     }
-}
+} 

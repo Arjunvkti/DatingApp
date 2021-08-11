@@ -1,3 +1,4 @@
+using System;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,6 @@ namespace API.Controllers
             _context = context;
         }
 
-
         [Authorize]
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
@@ -26,7 +26,7 @@ namespace API.Controllers
         {
             var thing = _context.Users.Find(-1);
 
-            if(thing == null) return NotFound();
+            if (thing == null) return NotFound();
 
             return Ok(thing);
         }
@@ -44,7 +44,7 @@ namespace API.Controllers
         [HttpGet("bad-request")]
         public ActionResult<string> GetBadRequest()
         {
-            return BadRequest();
+            return BadRequest("This was not a good request");
         }
     }
-}
+} 
