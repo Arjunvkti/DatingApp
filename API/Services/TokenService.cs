@@ -50,5 +50,10 @@ namespace API.Services
 
             return tokenHandler.WriteToken(token);
         }
+
+        public Task<string> CreateTokenAsync(AppUser user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
