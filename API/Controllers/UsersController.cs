@@ -10,7 +10,6 @@ using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,19 +21,16 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
-
         private readonly IUnitOfWork _unitOfWork;
         public UsersController(IUnitOfWork unitOfWork, IMapper mapper,
-                IPhotoService photoService)
+            IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
-
         }
 
         [HttpGet]
-
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
             var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
@@ -49,21 +45,18 @@ namespace API.Controllers
                 users.TotalCount, users.TotalPages);
 
             return Ok(users);
-
         }
-
 
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-           return await _unitOfWork.UserRepository.GetMemberAsync(username);
-
-
+            return await _unitOfWork.UserRepository.GetMemberAsync(username);
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
+
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
             _mapper.Map(memberUpdateDto, user);
@@ -79,7 +72,7 @@ namespace API.Controllers
         public async Task<ActionResult<photoDto>> AddPhoto(IFormFile file)
         {
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
-            
+
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
@@ -99,11 +92,11 @@ namespace API.Controllers
 
             if (await _unitOfWork.Complete())
             {
-               return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<photoDto>(photo));
+                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<photoDto>(photo));
             }
-              
 
-            return BadRequest("Problem adding photo");
+
+            return BadRequest("Problem addding photo");
         }
 
         [HttpPut("set-main-photo/{photoId}")]
@@ -124,7 +117,7 @@ namespace API.Controllers
             return BadRequest("Failed to set main photo");
         }
 
-         [HttpDelete("delete-photo/{photoId}")]
+        [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());

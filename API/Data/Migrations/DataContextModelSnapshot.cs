@@ -92,7 +92,7 @@ namespace API.Data.Migrations
                     b.Property<string>("KnownAs")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Lastactive")
+                    b.Property<DateTime>("LastActive")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("LockoutEnabled")

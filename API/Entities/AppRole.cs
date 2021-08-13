@@ -7,4 +7,4 @@ namespace API.Entities
     {
         public ICollection<AppUserRole> UserRoles { get; set; }
     }
-} 
+}

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210812150843_PostgresInitial")]
+    [Migration("20200920093441_PostgresInitial")]
     partial class PostgresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,7 +94,7 @@ namespace API.Data.Migrations
                     b.Property<string>("KnownAs")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Lastactive")
+                    b.Property<DateTime>("LastActive")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("LockoutEnabled")

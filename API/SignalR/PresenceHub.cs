@@ -30,11 +30,11 @@ namespace API.SignalR
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var isOffline = await _tracker.UserDisconnected(Context.User.GetUsername(), Context.ConnectionId);
-
+            
             if (isOffline)
                 await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUsername());
 
             await base.OnDisconnectedAsync(exception);
         }
     }
-} 
+}

@@ -22,4 +22,4 @@ namespace API.DTOs
         [JsonIgnore]
         public bool RecipientDeleted { get; set; }
     }
-} 
+}

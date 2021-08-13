@@ -54,11 +54,6 @@ namespace API.Data
                 likesParams.PageNumber, likesParams.PageSize);
         }
 
-        public Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<AppUser> GetUserWithLikes(int userId)
         {
             return await _context.Users
@@ -66,4 +61,4 @@ namespace API.Data
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
     }
-} 
+}

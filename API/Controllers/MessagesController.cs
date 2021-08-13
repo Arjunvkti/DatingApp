@@ -30,7 +30,7 @@ namespace API.Controllers
 
             var messages = await _unitOfWork.MessageRepository.GetMessagesForUser(messageParams);
 
-            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize, 
+            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize,
                 messages.TotalCount, messages.TotalPages);
 
             return messages;
@@ -58,4 +58,4 @@ namespace API.Controllers
             return BadRequest("Problem deleting the message");
         }
     }
-} 
+}

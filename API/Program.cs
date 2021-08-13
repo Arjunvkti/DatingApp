@@ -21,7 +21,7 @@ namespace API
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
-            try
+            try 
             {
                 var context = services.GetRequiredService<DataContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
@@ -44,7 +44,5 @@ namespace API
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-            
     }
 }

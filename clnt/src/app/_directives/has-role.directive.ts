@@ -25,7 +25,7 @@ export class HasRoleDirective implements OnInit {
       return;
     }
 
-    if (this.user?.roles.some((r: any)  => this.appHasRole.includes(r))) {
+    if (this.user?.roles.some((r:any)  => this.appHasRole.includes(r))) {
       this.viewContainerRef.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainerRef.clear();

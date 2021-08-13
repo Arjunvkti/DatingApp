@@ -120,7 +120,7 @@ namespace API.SignalR
             var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             _unitOfWork.MessageRepository.RemoveConnection(connection);
             if (await _unitOfWork.Complete()) return group;
-            
+
             throw new HubException("Failed to remove from group");
         }
 
@@ -130,4 +130,4 @@ namespace API.SignalR
             return stringCompare ? $"{caller}-{other}" : $"{other}-{caller}";
         }
     }
-} 
+}

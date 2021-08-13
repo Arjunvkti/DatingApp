@@ -7,15 +7,14 @@ using AutoMapper;
 
 namespace API.Helpers
 {
-    public class AutoMapperProfile : Profile
+    public class AutoMapperProfiles : Profile
     {
-        public AutoMapperProfile()
+        public AutoMapperProfiles()
         {
             CreateMap<AppUser, MemberDto>()
-                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => 
                     src.Photos.FirstOrDefault(x => x.IsMain).Url))
-                .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
-                    src.DateOfBirth.CalculateAge()));   
+                .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             CreateMap<Photo, photoDto>();
             CreateMap<MemberUpdateDto, AppUser>();
             CreateMap<RegisterDto, AppUser>();
@@ -24,6 +23,7 @@ namespace API.Helpers
                     src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.RecipientPhotoUrl, opt => opt.MapFrom(src => 
                     src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url));
+            CreateMap<MessageDto, Message>();
         }
     }
 }

@@ -13,4 +13,4 @@ namespace API.Errors
         public string Message { get; set; }
         public string Details { get; set; }
     }
-} 
+}
